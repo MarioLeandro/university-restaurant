@@ -1,0 +1,12 @@
+{
+  "name": "university-restaurant",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "repository": "https://github.com/MarioLeandro/university-restaurant.git",
+  "author": "Mario Leandro <marioleandro34@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
