@@ -6,14 +6,23 @@
   "author": "Mario Leandro <marioleandro34@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --exit-child src/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
     "build": "tsc"
   },
   "dependencies": {
-    "express": "^4.19.2"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-async-errors": "^3.1.1",
+    "mongodb": "^6.7.0",
+    "mongoose": "^8.4.1",
+    "reflect-metadata": "^0.2.2",
+    "tsconfig-paths": "^4.2.0",
+    "tsyringe": "^4.8.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/mongoose": "^5.11.97",
+    "prettier": "3.2.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
   }
