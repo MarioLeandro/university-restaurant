@@ -1,9 +1,8 @@
 import 'dotenv/config';
 import 'reflect-metadata';
+import 'express-async-errors';
 
 import express, { Request, Response, NextFunction } from 'express';
-
-import 'express-async-errors';
 
 import AppError from '@server/shared/errors/AppError';
 
@@ -35,6 +34,7 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
 });
 
 const port = process.env.PORT || 3001;
-app.listen(3002, () => {
+
+app.listen(port, () => {
   console.log(`🚀️ Running at HTTP port ${port}!`);
 });

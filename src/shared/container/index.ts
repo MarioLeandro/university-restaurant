@@ -1,7 +1,6 @@
-// import RolesRepository from '@server/modules/roles/infra/mongoose/repositories/RolesRepository';
-// import IRolesRepository from '@server/modules/roles/repositories/IRolesRepository';
+import { container } from 'tsyringe';
 
-// container.registerSingleton<IRolesRepository>(
-//     'RolesRepository',
-//     RolesRepository,
-//   );
+import DishRepository from '@server/modules/dish/infra/mongoose/repositories/DishRepository';
+import IDishRepository from '@server/modules/dish/repositories/IDishRepository';
+
+container.registerSingleton<IDishRepository>('DishRepository', DishRepository);
