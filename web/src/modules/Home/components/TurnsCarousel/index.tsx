@@ -59,7 +59,7 @@ export function TurnsCarousel({ prices, quantities, setQuantities }: IProps) {
               h="80%"
               direction={"column"}
               align={"center"}
-              borderLeft={"1px solid gray"}
+              borderLeft={"1px solid #f0f0f0"}
             >
               <Text fontWeight={500} fontSize={"5xl"}>
                 {quantities[turn as "lunch" | "dinner"]}

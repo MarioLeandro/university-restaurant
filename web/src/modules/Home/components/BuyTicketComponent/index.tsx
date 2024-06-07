@@ -39,7 +39,7 @@ export function BuyTicketComponent({
         label="Segure e arraste verticalmente para alternar entre as refeições"
         aria-label="A tooltip"
       >
-        <ArrowUpDown size={52} />
+        <ArrowUpDown cursor={"help"} size={52} />
       </Tooltip>
 
       <Flex
