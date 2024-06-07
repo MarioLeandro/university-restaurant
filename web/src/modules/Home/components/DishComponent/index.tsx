@@ -61,7 +61,7 @@ export function DishComponent() {
             Hamburguer com batata frita
           </Text>
           <span>...</span>
-          <Text fontWeight={500} color="#fd9f11" fontSize={"medium"} w={"100%"}>
+          <Text fontWeight={500} color="#0EA5E9" fontSize={"medium"} w={"100%"}>
             Ver mais
           </Text>
         </Flex>

@@ -17,8 +17,7 @@ export default function RootLayout({
       <head></head>
       <body
         style={{
-          background:
-            "linear-gradient(158deg, rgba(255,179,0,1) 31%, rgba(212,194,25,1) 77%, rgba(234,255,104,1) 100%)",
+          background: "#F2F7FA",
           height: "100vh",
           width: "100%",
           color: "#0f172a",

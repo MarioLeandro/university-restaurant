@@ -8,12 +8,11 @@ import { Autoplay } from "swiper/modules";
 
 import { Badge, Flex } from "@chakra-ui/react";
 
-export function Carousel() {
+export function DishCarousel() {
   return (
     <Swiper
       spaceBetween={50}
-      slidesPerView={4}
-      centeredSlides={true}
+      slidesPerView={5}
       loop={true}
       autoplay={{
         delay: 2500,
@@ -22,7 +21,7 @@ export function Carousel() {
       modules={[Autoplay]}
       style={{ height: "100%", padding: 7 }}
     >
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((slide) => (
+      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((slide) => (
         <SwiperSlide key={slide}>
           <Flex
             h="100%"
@@ -35,7 +34,9 @@ export function Carousel() {
             borderRadius={10}
             cursor={"pointer"}
             outlineOffset={5}
-            outline={slide === 1 ? "2px solid #867200" : ""}
+            outline={
+              slide === 1 ? "2px solid var(--chakra-colors-blue-400)" : ""
+            }
             p={4}
             align={"end"}
             overflow={"hidden"}
@@ -58,19 +59,9 @@ export function Carousel() {
               whiteSpace="nowrap"
               wordBreak="break-word"
             >
-              Escondidinho de charque
+              Frango a la king
             </Badge>
           </Flex>
-          {/* <Image
-            src="https://www.allrecipes.com/thmb/GvGzAzmqmTiCFP9AIisrHZav_Gw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Copycat-Burger-and-Fries-2000-b09140d301434155bda5a8c8a40f5e95.jpeg"
-            alt=""
-            objectFit="cover"
-            borderRadius={10}
-            cursor={"pointer"}
-            outlineOffset={10}
-            margin={10}
-            outline={slide === 1 ? "2px solid #0EA5E9" : ""}
-          /> */}
         </SwiperSlide>
       ))}
     </Swiper>
