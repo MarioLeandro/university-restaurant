@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import CreateDishService from '@server/modules/dish/services/CreateDishService';
-import GetAllDishesService from '@server/modules/dish/services/GetAllDishesService';
+import CreateDishService from '@server/modules/dishes/services/CreateDishService';
+import GetAllDishesService from '@server/modules/dishes/services/GetAllDishesService';
 
-export default class DishController {
+export default class DishesController {
   async index(request: Request, response: Response) {
     const getAllDishesService = container.resolve(GetAllDishesService);
 

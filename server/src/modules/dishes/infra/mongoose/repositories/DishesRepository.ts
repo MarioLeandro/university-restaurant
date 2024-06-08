@@ -2,10 +2,10 @@ import { Model } from 'mongoose';
 import { container } from 'tsyringe';
 
 import DishModel, { IDish, DishSchema } from '../schemas/Dish';
-import IDishRepository from '@server/modules/dish/repositories/IDishRepository';
-import ICreateDishDTO from '@server/modules/dish/dtos/ICreateDishDTO';
+import IDishesRepository from '@server/modules/dishes/repositories/IDishesRepository';
+import ICreateDishDTO from '@server/modules/dishes/dtos/ICreateDishDTO';
 
-export default class DishRepository implements IDishRepository {
+export default class DishesRepository implements IDishesRepository {
   private ormRepository: Model<DishSchema>;
 
   constructor() {

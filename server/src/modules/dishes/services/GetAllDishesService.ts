@@ -1,12 +1,12 @@
 import { injectable, inject } from 'tsyringe';
 import { IDish } from '../infra/mongoose/schemas/Dish';
-import IDishRepository from '../repositories/IDishRepository';
+import IDishesRepository from '../repositories/IDishesRepository';
 
 @injectable()
 class GetAllDishesService {
   constructor(
     @inject('DishRepository')
-    private dishRepository: IDishRepository
+    private dishRepository: IDishesRepository
   ) {}
 
   public async execute(): Promise<IDish[]> {

@@ -1,6 +1,13 @@
 import { container } from 'tsyringe';
 
-import DishRepository from '@server/modules/dish/infra/mongoose/repositories/DishRepository';
-import IDishRepository from '@server/modules/dish/repositories/IDishRepository';
+import '@server/modules/users/providers';
+import './providers';
 
-container.registerSingleton<IDishRepository>('DishRepository', DishRepository);
+import DishesRepository from '@server/modules/dishes/infra/mongoose/repositories/DishesRepository';
+import IDishesRepository from '@server/modules/dishes/repositories/IDishesRepository';
+
+import UsersRepository from '@server/modules/users/infra/mongoose/repositories/UsersRepository';
+import IUsersRepository from '@server/modules/users/repositories/IUsersRepository';
+
+container.registerSingleton<IDishesRepository>('DishesRepository', DishesRepository);
+container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);
