@@ -7,7 +7,7 @@ export default {
       query?: {
         [key: string]: string;
       }
-    ) => queryString.stringifyUrl({ url: `/session${type}`, query }),
+    ) => queryString.stringifyUrl({ url: `/sessions${type}`, query }),
   },
   view: {
     menu: (value = "") => `/menu${value}`,

@@ -7,6 +7,8 @@ export default class SessionsController {
   async login(request: Request, response: Response) {
     const { email, password } = request.body;
 
+    console.log('chegou aki');
+
     const authenticateUserService = container.resolve(AuthenticateUserService);
 
     const { user, token } = await authenticateUserService.execute({

@@ -1,6 +1,7 @@
 // middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { getServerSession } from "next-auth";
 import { routes, serverRoles } from "@app/global/utils";
 
 const addBasepath = (route: string) => `/view${route}`;
@@ -23,78 +24,80 @@ function isCurrentRouteIncluded(currentRoute: string) {
     });
 }
 
-function AuthMiddleware(request: NextRequest, response: NextResponse) {
-  const appName = process.env["NEXT_PUBLIC_APP_ID"] as string;
-  const cookies = request.cookies;
+async function AuthMiddleware(request: NextRequest, response: NextResponse) {
+  // const session = await getServerSession();
 
-  const token = `@${appName}/tk`;
-  //   const refreshToken = `@${appName}/rtk`;
-  const userCookie = cookies.get(`@${appName}/usr`)?.value;
-  let userPermissions = [];
-  if (userCookie) {
-    userPermissions = JSON.parse(userCookie);
-  }
+  // console.log(session);
 
-  const currentRoute = request.nextUrl.basePath.concat(
-    !request.nextUrl.pathname.endsWith("/")
-      ? `${request.nextUrl.pathname}/`
-      : request.nextUrl.pathname
-  );
+  // const cookies = request.cookies;
 
-  const isCurrentRouteIncludedIn = isCurrentRouteIncluded(currentRoute);
-  const isCurrentRoutePublic = isCurrentRouteIncludedIn(PUBLIC_ROUTES);
-  const isCurrentRouteHybrid = isCurrentRouteIncludedIn(HYBRID_ROUTES);
+  // const token = `@RU/tk`;
+  // const userCookie = cookies.get(`@RU/tk`)?.value;
+  // let userPermissions = [];
+  // if (userCookie) {
+  //   userPermissions = JSON.parse(userCookie);
+  // }
 
-  if (
-    ["_next", "favicon.ico", "/api/"].some((nonRoute) =>
-      currentRoute.includes(nonRoute)
-    )
-  ) {
-    return [false, response];
-  }
+  // const currentRoute = request.nextUrl.basePath.concat(
+  //   !request.nextUrl.pathname.endsWith("/")
+  //     ? `${request.nextUrl.pathname}/`
+  //     : request.nextUrl.pathname
+  // );
 
-  const screenURL = new URL(addBasepath(routes.view.HOME), request.url);
-  screenURL.search = request.nextUrl.search;
+  // const isCurrentRouteIncludedIn = isCurrentRouteIncluded(currentRoute);
+  // const isCurrentRoutePublic = isCurrentRouteIncludedIn(PUBLIC_ROUTES);
+  // const isCurrentRouteHybrid = isCurrentRouteIncludedIn(HYBRID_ROUTES);
 
-  /* Should redirect to private route */
-  const isUserSignedInAtPublicPage =
-    isCurrentRoutePublic && !!cookies.get(token);
-  if (isUserSignedInAtPublicPage) {
-    return [true, NextResponse.redirect(screenURL)];
-  }
+  // if (
+  //   ["_next", "favicon.ico", "/api/"].some((nonRoute) =>
+  //     currentRoute.includes(nonRoute)
+  //   )
+  // ) {
+  //   return [false, response];
+  // }
 
-  /* Should Logout */
-  const isUserSignedOutAtPrivatePage =
-    !isCurrentRoutePublic && !isCurrentRouteHybrid;
-  if (isUserSignedOutAtPrivatePage) {
-    response.cookies.delete(token); //https://nextjs.org/docs/messages/middleware-upgrade-guide
-    screenURL.pathname = addBasepath(routes.view.LOGIN);
-    return [true, NextResponse.redirect(screenURL)];
-  }
+  // const screenURL = new URL(addBasepath(routes.view.HOME), request.url);
+  // screenURL.search = request.nextUrl.search;
 
-  /* Should redirect to allowed page */
-  const isCurrentRouteNotAllowed = !isCurrentRouteIncludedIn(ALLOWED_ROUTES);
-  if (isCurrentRouteNotAllowed) {
-    return [true, NextResponse.redirect(screenURL)];
-  }
+  // /* Should redirect to private route */
+  // const isUserSignedInAtPublicPage =
+  //   isCurrentRoutePublic && !!cookies.get(token);
+  // if (isUserSignedInAtPublicPage) {
+  //   return [true, NextResponse.redirect(screenURL)];
+  // }
 
-  const isCurrentRouteNotAllowedToHUB =
-    PRIVATE_ROUTES_PERMISSION[currentRoute]?.length &&
-    PRIVATE_ROUTES_PERMISSION[currentRoute].some((routePermission) => {
-      return !userPermissions.includes(routePermission);
-    });
-  if (isCurrentRouteNotAllowedToHUB) {
-    return [true, NextResponse.redirect(screenURL)];
-  }
+  // /* Should Logout */
+  // const isUserSignedOutAtPrivatePage =
+  //   !isCurrentRoutePublic && !isCurrentRouteHybrid;
+  // if (isUserSignedOutAtPrivatePage) {
+  //   response.cookies.delete(token); //https://nextjs.org/docs/messages/middleware-upgrade-guide
+  //   screenURL.pathname = addBasepath(routes.view.LOGIN);
+  //   return [true, NextResponse.redirect(screenURL)];
+  // }
+
+  // /* Should redirect to allowed page */
+  // const isCurrentRouteNotAllowed = !isCurrentRouteIncludedIn(ALLOWED_ROUTES);
+  // if (isCurrentRouteNotAllowed) {
+  //   return [true, NextResponse.redirect(screenURL)];
+  // }
+
+  // const isCurrentRouteNotAllowedToHUB =
+  //   PRIVATE_ROUTES_PERMISSION[currentRoute]?.length &&
+  //   PRIVATE_ROUTES_PERMISSION[currentRoute].some((routePermission) => {
+  //     return !userPermissions.includes(routePermission);
+  //   });
+  // if (isCurrentRouteNotAllowedToHUB) {
+  //   return [true, NextResponse.redirect(screenURL)];
+  // }
 
   return [false, response];
 }
 
-export function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
   /* Authorized Routes */
-  const [shouldReturn, responseAuth] = AuthMiddleware(request, response);
+  const [shouldReturn, responseAuth] = await AuthMiddleware(request, response);
   if (shouldReturn) return responseAuth;
 
   return response;

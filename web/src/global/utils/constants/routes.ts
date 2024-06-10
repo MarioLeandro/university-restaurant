@@ -1,10 +1,13 @@
 export default {
   view: {
-    LOGIN: "/login/",
-    HOME: "/",
+    HOME: "/view",
   },
   management: {
-    HOME: "/",
-    DISHES: (dishId = ""): string => `/dishes${dishId}/`,
+    HOME: "/management",
+    DISHES: (dishId = ""): string => `/management/dishes${dishId}/`,
+  },
+  auth: {
+    LOGIN: "/",
+    REGISTER: "/register",
   },
 };

@@ -41,8 +41,9 @@ export default function UiHome({
     <Grid
       h="100%"
       w="100%"
-      px={"15%"}
-      py={10}
+      px={"10%"}
+      pt={10}
+      pb={"5%"}
       templateRows="repeat(5, 1fr)"
       templateColumns="repeat(3, 1fr)"
       gap={6}
